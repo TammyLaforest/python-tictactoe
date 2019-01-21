@@ -28,3 +28,7 @@
                 td > a {
                     font-size: 18px;
                 }
+
+                .button, .btn {
+                    margin-top: .5em;
+                }
