@@ -41,7 +41,9 @@ def play(row, col):
 	session["board"][row][col] = session["turn"]
 	turn = session ["turn"]
 	board = session["board"]
-	session["message"] = score(row, col, turn, board)
+	session["message"] = score(row, col)
+	if session["message"] == "Draw!":
+		return render_template("game.html", game=session["board"], turn=session["turn"], message=session["message"], won =session["won"])
 
 	# Change the turn
 	if session["turn"] == "X":
@@ -72,15 +74,13 @@ def score(row, col):
 			elif session["count"] == 8:
 				return "Draw!"
 			else:
-				if turn == "X":
-					return "It's Y's turn."
-				else:
-					return "It's X's turn."
+				return "Try Again!"
+
 		else:
 			if turn == "X":
 				return "It is Y's turn."
 			else:
-				return "It is X's turn."
+				return "Your move!"
 
 
 @app.route("/ai_game")
@@ -105,6 +105,9 @@ def playai(row, col):
 	session["scores"][row][col] = 1
 	session["count"] += 1
 	session["message"] = score(row, col)
+	if session["message"] == "Draw!":
+		return render_template("game.html", game=session["board"], turn=session["turn"], message=session["message"], won =session["won"])
+
 	
 	session["turn"] = "Y"
 	
@@ -113,9 +116,10 @@ def playai(row, col):
 	session["scores"][row][col] = -3
 	session["count"] += 1
 	
-	
-	
 	session["message"] = score(row, col)
+	if session["message"] == "Draw!":
+		return render_template("game.html", game=session["board"], turn=session["turn"], message=session["message"], won =session["won"])
+
 	
 	session["turn"] = "X" 
 	print(session["save"])
@@ -128,64 +132,77 @@ def computer_choice():
 	scores = session ["scores"]
 	turn = session ["turn"]
 	corners = (0, 2)
+	
+
+	# If player one doesn't choose the center in their first move, choose the center. Otherwise choose a corner. 
 	if session["count"] == 1:
 		if board[1][1] is None:
 			return 1, 1
 		else:
 			return random.choice(corners), random.choice(corners)
 	
+	# If there is a chance of playing a winning move, play that first. 
+	# Check for horizontal wins. 
 	else:
 		for i in range(3):
 			if sum(scores[i]) == -6:
 				for j in range(3):
-					if board[i][j] != "X":
+					if board[i][j] != "Y":
 						return i, j
 
+	# Check for vertical wins.
 		for j in range(3):
 			if (scores[0][j] + scores[1][j] + scores[2][j]) == -6:
 				for i in range(3):
-					if board[i][j] != "X":
+					if board[i][j] != "Y":
 						return i, j
 
+	# Check for first diagonal win. 
 		if scores[0][0] + scores[1][1] + scores[2][2] == -6:
-			if board[0][0] != "X":
-				print("hello there")
+			if board[0][0] != "Y":
 				return  0, 0
 			else:
-				print("hello there young fellow")
 				return 2, 2
-	
+
+	# Check for second diagonal win. 
 		elif scores[0][2] + scores[1][1] + scores[2][0] == -6:
-			if board[0][2] != "X":
+			if board[0][2] != "Y":
 				return 0, 2
 			else:
 				return 2, 0		
 
+	# If a win isn't an option, check if there is the immediate threat of defeat.
+	# Check for horizontal threats. 
 		for i in range(3):
 			if sum(scores[i]) == 2:
 				for j in range(3):
 					if board[i][j] != "X":
 						return i, j
 
+	# Check for vertical threats.
 		for j in range(3):
 			if (scores[0][j] + scores[1][j] + scores[2][j]) == 2:
 				for i in range(3):
 					if board[i][j] != "X":
 						return i, j
 
+	# Check for first diagonal threat. 
 		if scores[0][0] + scores[1][1] + scores[2][2] == 2:
 			if board[0][0] != "X":
 				return  0, 0
 			else:
 				return 2, 2
 	
+	# Check for second diagonal threat. 
 		elif scores[0][2] + scores[1][1] + scores[2][0] == 2:
 			if board[0][2] != "X":
 				return 0, 2
 			else:
 				return 2, 0		
+
+	# Else, find an empty spot and take it. 
 		else: 
 			for i in range(3):
 				for j in range(3):
-					if board[i][j] != "X":
+					if board[i][j] != "X" and board[i][j] != "Y":
 						return  i, j
