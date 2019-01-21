@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %}  - Tic Tac Toe</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+{% endblock %}
+</head>
+<body>
+    <div class="container">
+      <div class="row header">
+        <h1>Tic Tac Toe</h1>
+    </div>
+    <div class="row">
+        <a  href="{{ url_for('new_game') }}" class="btn btn-primary button">New 2-player game</a>
+        <a  href="{{ url_for('ai_game') }}" class="btn btn-primary button">New game against computer</a>
+    </div> 
+    <div class="row">
+     <h6 class="message">{{ message }}</h6>
+
+ </div>
+ <div class="row">
+{% block content %}{% endblock %}
+{% block footer %}
+ {% endblock %}
+</div>
+</div>
+</body>
+</html>

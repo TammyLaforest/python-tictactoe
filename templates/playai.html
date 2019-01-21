@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Two Player{% endblock %}
+{% block title %}Play AI{% endblock %}
     {% block content %}
 
     <table>
@@ -14,7 +14,7 @@
                 {% elif not won  %}
 
 
-                    <a href="{{ url_for('play', row=i, col=j) }}">Play {{ turn }} here.</a>
+                    <a href="{{ url_for('playai', row=i, col=j) }}">Play {{ turn }} here.</a>
 
                 {% else %}
                 <p></p>
