@@ -1,0 +1,68 @@
+
+            body, header, h1, .btn, .message{
+                display: block;
+                text-align: center;
+                margin: 0 auto;
+
+            }
+
+            .message {
+                padding: 1em;
+
+            }
+
+                table {
+                    border-collapse: collapse;
+                    margin: 0 auto;
+                    max-width: 100vw;
+                }
+                td {
+                    border: 1px solid black;
+                    width: 150px;
+                    height: 150px;
+                    max-width: 100vw;
+                    max-height: auto;
+                    font-size: 30px;
+                    text-align: center;
+                }
+                td > a {
+                    font-size: 18px;
+                }
+
+                .button, .btn {
+                    margin-top: .5em;
+                }
+
+                            body, header, h1, .btn, .message{
+                display: block;
+                text-align: center;
+                margin: 0 auto;
+
+            }
+
+            .message {
+                padding: 1em;
+
+            }
+
+                table {
+                    border-collapse: collapse;
+                    margin: 0 auto;
+                    max-width: 100vw;
+                }
+                td {
+                    border: 1px solid black;
+                    width: 150px;
+                    height: 150px;
+                    max-width: 100vw;
+                    max-height: auto;
+                    font-size: 30px;
+                    text-align: center;
+                }
+                td > a {
+                    font-size: 18px;
+                }
+
+                .button, .btn {
+                    margin-top: .5em;
+                }
