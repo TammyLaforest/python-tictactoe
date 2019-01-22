@@ -1,1 +1,3 @@
-web: waitress-serve --port=$PORT python-tictactoe.app:application
+web: waitress-serve --port=$PORT app:app
+
+
