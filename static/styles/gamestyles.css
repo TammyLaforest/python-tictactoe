@@ -1,4 +1,6 @@
 
+
+
             body, header, h1, .btn, .message{
                 display: block;
                 text-align: center;
@@ -66,3 +68,13 @@
                 .button, .btn {
                     margin-top: .5em;
                 }
+
+
+                    @media (max-width: 411px){
+
+        table{
+            min-width: 100vw;
+            height: auto;
+        }
+    }
+            
